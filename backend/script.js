@@ -1,5 +1,5 @@
 // CREATE TABLE users (
-// 	id SERIAL NOT NULL PRIMARY KEY,
+// 	id uuid NOT NULL DEFAULT gen_random_uuid();
 // 	email VARCHAR(120) UNIQUE NOT NULL,
 // 	name VARCHAR(50) NOT NULL,
 // 	password TEXT,

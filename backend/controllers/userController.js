@@ -3,7 +3,13 @@ import { comparePassword, hashPassword } from "../libs/index.js";
 
 export const getUser = async (req, res) => {
   try {
-    const { userId } = req.body.user;
+    const userId = req.body.user.userId;
+    if (!userId || typeof userId !== "string") {
+      return res
+        .status(400)
+        .json({ status: "failed", message: "Invalid user ID" });
+    }
+
 
     const userExist = await pool.query({
       text: `SELECT * FROM users WHERE id = $1`,
@@ -32,7 +38,12 @@ export const getUser = async (req, res) => {
 
 export const changePassword = async (req, res) => {
   try {
-    const { userId } = req.body.user;
+    const userId = req.body.user.userId;
+    if (!userId || typeof userId !== "string") {
+      return res
+        .status(400)
+        .json({ status: "failed", message: "Invalid user ID" });
+    }
 
     const { currentPassword, newPassword, confirmPassword } = req.body;
 
@@ -83,7 +94,13 @@ export const changePassword = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   try {
-    const { userId } = req.body.user;
+    const userId = req.body.user.userId;
+    if (!userId || typeof userId !== "string") {
+      return res
+        .status(400)
+        .json({ status: "failed", message: "Invalid user ID" });
+    }
+
     const { name, email, password } = req.body;
 
     const userExist = await pool.query({

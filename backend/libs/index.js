@@ -11,13 +11,19 @@ export const hashPassword = async (userValue) => {
 
 export const comparePassword = async (userPassword, password) => {
   try {
-    const isMatch = await bcrypt.compare(userPassword, password);
+    if (!userPassword || !password) {
+      console.error("comparePassword error: missing arguments");
+      return false;
+    }
 
+    const isMatch = await bcrypt.compare(userPassword, password);
     return isMatch;
   } catch (error) {
-    console.log(error);
+    console.error("comparePassword error:", error);
+    return false;
   }
 };
+
 
 export const createJWT = (id) => {
   return JWT.sign(
