@@ -17,7 +17,6 @@ const authMiddleware = async (req, res, next) => {
     req.body.user = {
       userId: userToken.userId,
     };
-
     next();
   } catch (error) {
     console.log(error);
