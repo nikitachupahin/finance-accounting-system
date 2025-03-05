@@ -101,7 +101,7 @@ export const updateUser = async (req, res) => {
         .json({ status: "failed", message: "Invalid user ID" });
     }
 
-    const { name, email, password } = req.body;
+    const { name, email } = req.body;
 
     const userExist = await pool.query({
       text: `SELECT * FROM users WHERE id = $1`,
@@ -117,7 +117,7 @@ export const updateUser = async (req, res) => {
     }
 
     const updatedUser = await pool.query({
-      text: `UPDATE users SET name = $1, email = $2,  updatedat = CURRENT_TIMESTAMP WHERE id = $3 RETURNING *`,
+      text: `UPDATE users SET name = $1, email = $2,  createdat = CURRENT_TIMESTAMP WHERE id = $3 RETURNING *`,
       values: [name, email, userId],
     });
 
